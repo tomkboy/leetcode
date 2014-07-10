@@ -1,0 +1,63 @@
+Enter file contents here// wordbreak.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<string>
+#include<set>
+#include<unordered_set>
+#include<iostream>
+using namespace std;
+class solution{
+
+public:bool wordbreak(string word,unordered_set<string>& dict)
+	   {
+		   vector<bool> state(word.length()+1,false);
+		   state[0]=true;
+		   for(int i=0;i<word.length ();i++)
+		   {
+			   if(state[i]==false)
+				   continue;
+			   for(int j=1;i+j<=word.length();j++)
+			   {
+				   if(dict.find(word.substr(i,j))!=dict.end())
+				   {
+					   state[i+j]=true;//here pay attention
+					  
+					   break;//can break or not
+				   }
+
+			   }
+		   }
+		   return state[word.length()];
+	   }
+};
+int main()
+{
+	unordered_set<string> dict;
+	string word;
+	string input;
+	cout<<"please input your dict"<<endl;
+	while(cin>>word)
+	{
+		dict.insert(word);
+	}
+	
+	cin.clear();//we should clear it before use it again
+	cout<<"please input your breakword"<<endl;
+	while(cin>>input)
+	{
+		word=input;
+	}
+	solution k;
+	if(k.wordbreak(word,dict))
+		cout<<"it can break"<<endl;
+	else
+		cout<<"it can not break"<<endl;
+	//cout<<k.wordbreak(word,dict)<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
