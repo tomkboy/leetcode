@@ -1,0 +1,90 @@
+Enter file contents here// palindrome partitioning.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+
+#include<vector>
+#include<string>
+#include<iostream>
+using namespace std;
+
+bool ispalindrome(string s,int i,int j)
+{
+	if(i>j)
+		return false;
+	if(i==j)//							here i make it =,not ==,so this if always return true
+		return true;
+	if(i<j)
+	{
+		/*if(s[i]==s[j]&&ispalindrome(s,i+1,j-1))
+			return true;
+		else
+			return false;*/
+		if(s[i]==s[j])
+		{
+			if(i+1==j)
+				return true;
+			else
+				return ispalindrome(s,i+1,j-1);
+		}
+		else
+			return false;
+	}
+
+}
+void dfs(vector<string> &temp,vector<vector<string>> &res,int cur,int len,string s)
+{
+	if(cur==len)
+	{
+		res.push_back(temp);
+		return;
+	}
+	for(int i=len-1;i>=cur;i--)
+	{
+		if(ispalindrome(s,cur,i))
+		{
+			temp.push_back(s.substr(cur,i-cur+1));
+			dfs(temp,res,i+1,len,s);
+			temp.pop_back();
+		}
+	}
+	//return;
+}
+
+vector<vector<string> > partition(string s)
+{
+	vector<string> temp;
+	vector<vector<string> > result;
+	if(s=="")
+		return result;
+	int n=0;
+	int len=s.length();
+	dfs(temp,result,n,len,s);
+	return result;
+}
+
+
+
+int main()
+{
+	string s="aab";
+	vector<vector<string> > temp;
+	//vector<string>
+	temp=partition(s);
+	int leng=temp.size();
+	for(int i=0;i<leng;i++)
+	{
+		int tmp=temp[i].size();
+		int j=0;
+		//tmp--;
+		while(j!=tmp)
+		{
+			cout<<temp[i][j++]<<endl;
+		}
+	}
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
