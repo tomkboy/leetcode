@@ -1,0 +1,54 @@
+Enter file contents here// sum root to leaf numbers.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+class solution{
+public:
+	int sumr2l(treenode* root)
+{
+	int reslut=0;
+	if(root==NULL)
+		return 0;
+	dfs(root,0,reslut);
+	return reslut;
+};
+void dfs(treenode* node,int x,int &res)
+{
+	x=x*10+node->val;
+	treenode* l=node->left;
+	treenode* r=node->right;
+	if(l==NULL&&r==NULL)
+		{
+			res+=x;
+			return;
+	}
+	
+	if(l)
+		dfs(l,x,res);
+	if(r)
+		dfs(r,x,res);
+}
+};
+int main()
+{
+	treenode* root=new treenode(1);
+	root->left=new treenode(2);
+	root->right=new treenode(3);
+	root->left->right=new treenode(4);
+	solution k;
+	int temp=k.sumr2l(root);
+	cout<<temp<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
