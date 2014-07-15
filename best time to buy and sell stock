@@ -1,0 +1,32 @@
+Enter file contents here// best time to buy and sell stock.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+using namespace std;
+int maxprofit(vector<int>& prices)
+{
+	int len=prices.size();
+	int mini=prices[0];
+	int cur=0;
+	for(int i=0;i<len;i++)
+	{
+		cur=max(cur,prices[i]-mini);
+		mini=min(mini,prices[i]);
+	}
+	return cur;
+}
+
+int main()
+{
+	int A[]={1,4,2,8,4,8,9,2};
+	vector<int> vec(A,A+sizeof(A)/sizeof(A[0]));
+	int temp=maxprofit(vec);
+	cout<<"the maxprofit is:"<<temp<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
