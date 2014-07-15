@@ -1,0 +1,73 @@
+Enter file contents here// wordladder.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<unordered_set>
+#include<iostream>
+#include<string>
+#include<queue>
+
+using namespace std;
+
+int wordladder(string start,string end,unordered_set<string> &dict)
+{
+	if(start.length()!=end.length())
+		return 0;
+	queue<string> que;
+	queue<string> temp;
+	que.push(start);
+	int dist=1;
+	while(!que.empty()&&dict.size()>=0)//must >=0,may que has one element and it can turn into end ,dict is empty is allow
+	{
+		while(!que.empty())
+		{
+			string toop=que.front();
+			que.pop();
+			int len=toop.length();
+			for(int j=0;j<len;j++)
+			{
+				char tmp=toop[j];
+				for(char i='a';i<='z';i++)
+				{
+					toop[j]=i;
+					if(toop==end)
+					{
+						return ++dist;
+						//break;
+					}
+					if(dict.find(toop)!=dict.end())
+					{
+						temp.push(toop);
+						dict.erase(toop);
+						//dist++;                 //here will add again,if word has two downword.
+						//j=len;
+						//break;
+					}
+					toop[j]=tmp;
+				}
+
+			}
+
+		}
+		swap(temp,que);
+		dist++;//here ,we plus it when the que pop once ,it's wrong ,we shoude do bfs,so ,we use another que to swap it.it can plus each diatance not when pop once
+		//return 0;//and we use two while to make bfs
+	}
+	return 0;
+}
+int main()
+{
+	
+	string A[]={"hot","dot","dog","lot","log"};
+	unordered_set<string> str(A,A+5);
+	string begin="hit";
+	string end="cog";
+	int res=wordladder(begin,end,str);
+	cout<<res<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
