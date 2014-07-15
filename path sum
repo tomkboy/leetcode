@@ -1,0 +1,62 @@
+Enter file contents here// path sum.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+bool dfs(treenode* node,int start,int final)//start must not &,or it will change when the node has two children.5+4+11+7+2,the true is 5+4+11+2
+{
+	start+=node->val;
+	if(node->left==NULL&&node->right==NULL)
+	{
+		if(start==final)
+			return true;
+		return false;
+	}
+	if(node->left!=NULL&&dfs(node->left,start,final))
+		return true;
+	if(node->right!=NULL&&dfs(node->right,start,final))
+		return true;	
+	/*if(node->right!=NULL)
+	dfs(node->right,start,final);*/
+	return false;
+}
+bool ispathsum(treenode* root,int target)
+{
+	if(root==NULL)
+		return false;
+	int temp=0;
+	dfs(root,temp,target);
+}
+
+
+
+int main()
+{
+	treenode* root=new treenode(5);
+	root->left=new treenode(4);
+	root->right=new treenode(8);
+	root->left->left=new treenode(11);
+	root->left->left->left=new treenode(7);
+	root->left->left->right=new treenode(2);
+	root->right->left=new treenode(13);
+	root->right->right=new treenode(4);
+	root->right->right->right=new treenode(1);
+	bool is;
+	int t=22;
+	is=ispathsum(root,t);
+	cout<<is<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
