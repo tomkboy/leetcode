@@ -1,0 +1,62 @@
+Enter file contents here// pascal's triangle.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+
+using namespace std;
+
+vector<vector<int> > generate(int numRows)
+{
+	vector<int> pre,now;
+	vector<vector<int> >res;
+    if(numRows==0)
+		return res;
+	if(numRows==1)
+	{	pre.push_back(1);
+	res.push_back(pre);
+	return res;
+	}
+	if(numRows>=2)
+	{
+		pre.push_back(1);
+		res.push_back(pre);
+		for(int i=2;i<=numRows;i++)
+		{
+			now.push_back(1);
+			for(int j=0;j<i-2;j++)//how can i make j++:i++?
+			{
+				now.push_back(pre[j]+pre[j+1]);
+
+			}
+			now.push_back(1);
+			pre=now;
+			res.push_back(now);
+			now.clear();
+		}
+		return res;
+	}
+
+}
+int main()
+{
+	vector<vector<int> > res;
+	res=generate(5);
+	int len=res.size();
+	for(int i=0;i<len;i++)
+	{
+		int temp=res[i].size();
+		for(int j=0;j<temp;j++)
+		{
+			cout<<res[i][j]<<",";
+		}
+		cout<<endl;
+	}
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
