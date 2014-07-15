@@ -1,0 +1,78 @@
+Enter file contents here// path sum  II.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+
+#include<vector>
+#include<iostream>
+using namespace std;
+
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+void dfs(treenode* node,int start,int sum,vector<int>& temp,vector<vector<int> >& res)
+{
+	/*if(node==NULL)
+		return;*/
+	start+=node->val;
+	temp.push_back(node->val);//the key is we must push it to vector before judge it and we need to pop it when find the leaf,and we should pop agian after return to up level
+	if(node->left==NULL&&node->right==NULL)
+	{
+	
+	if(start==sum)
+	{
+		res.push_back(temp);
+	}
+	temp.pop_back();
+	return;//must return 
+	}
+	//temp.push_back(start);
+	if(node->left!=NULL)
+	dfs(node->left,start,sum,temp,res);
+	if(node->right!=NULL)
+	dfs(node->right,start,sum,temp,res);
+	temp.pop_back();
+	return;
+}
+vector<vector<int> > pathsum(treenode* root,int sum)
+{
+	vector<int> temp;
+	vector<vector<int> > res;
+	if(root==NULL)
+		return res;
+	dfs(root,0,sum,temp,res);
+	return res;
+}
+
+int main()
+{
+	treenode* root=new treenode(5);
+	root->left=new treenode(4);
+	root->left->left=new treenode(11);
+	root->left->left->left=new treenode(7);
+	root->left->left->right=new treenode(2);
+	root->right=new treenode(8);
+	root->right->left=new treenode(13);
+	root->right->right=new treenode(4);
+	root->right->right->left=new treenode(5);
+	root->right->right->right=new treenode(1);
+	vector<vector<int> > temp=pathsum(root,22);
+	int len=temp.size();
+	for(int i=0;i<len;i++)
+	{
+		int tp=temp[i].size();
+		for(int j=0;j<tp;j++)
+		{
+			cout<<temp[i][j]<<",";
+		}
+		cout<<endl;
+	}
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
