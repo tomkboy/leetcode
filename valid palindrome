@@ -1,0 +1,57 @@
+Enter file contents here// valid palindrome.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+bool ischar(char& temp)
+{
+	/*if(temp==' ')
+		return false;*/
+	if(temp>='a'&&temp<='z')
+		return true;
+	if(temp>='A'&&temp<='Z')
+		{
+			temp+=32;
+			return ischar(temp);//非常量引用的初始值必须为左值。所以只能是先赋值temp。not （temp+32）
+
+	}
+	return false;
+}
+bool ispalindrome(string s)
+{
+	int len=s.length();
+	vector<char> vec;
+	for(int i=0;i<len;i++)
+	{
+		/*if(!ischar(s[i++])&&!ischar(s[len-1-i]))
+		{
+
+		}*/
+		if(ischar(s[i]))
+			vec.push_back(s[i]);
+	}
+	for(int j=0;j<vec.size()/2;j++)
+	{
+		if(vec[j]!=vec[vec.size()-1-j])
+			return false;
+	}
+	return true;
+}
+
+int main()
+{
+	string s="A man, a plan, a canal: Panama";
+	string sj="race a car";
+	if(ispalindrome(s))
+	cout<<"A man, a plan, a canal: Panama is palindrome"<<endl;
+	if(!ispalindrome(sj))
+		cout<<"race a car is not palindrome "<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
