@@ -1,0 +1,53 @@
+Enter file contents here
+// balanced bianary tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+int depth(treenode* root)
+{
+	if(root==NULL)
+		return 0;
+	int l=depth(root->left);
+	int r=depth(root->right);
+	return (l>r)?l+1:r+1;
+}
+bool isbalance(treenode* root)
+{
+	if(root==NULL)
+		return true;
+	int ldep=depth(root->left);
+	int rdep=depth(root->right);
+	if(abs(ldep-rdep)>1)
+		return false;
+	return isbalance(root->left)&&isbalance(root->right);
+}
+
+int main()
+{
+	treenode* root=new treenode(5);
+	root->left=new treenode(4);
+	root->left->left=new treenode(11);
+	root->left->left->left=new treenode(7);
+	root->left->left->right=new treenode(2);
+	root->right=new treenode(8);
+	root->right->left=new treenode(13);
+	root->right->right=new treenode(4);
+	root->right->right->left=new treenode(5);
+	root->right->right->right=new treenode(1);
+	bool is=isbalance(root);
+	cout<<is<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
