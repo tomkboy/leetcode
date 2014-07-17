@@ -1,0 +1,76 @@
+Enter file contents here
+// convert sorted list to binary search tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<list>
+#include<iostream>
+#include<vector>
+#include"levelorder.h"
+
+using namespace std;
+
+struct listnode{
+	int val;
+	listnode* next;
+	listnode(int x):val(x),next(NULL){}
+};
+treenode* l2t(listnode* lnode,int n)
+{
+	if(n<=0)
+		return NULL;// here is the key ,we should return treenode bo garantee it can stop;
+	listnode* temp=lnode;
+	for(int i=0;i<n/2;i++)
+	{
+		temp=temp->next;
+	}
+	treenode* root=new treenode(temp->val);
+	root->left=l2t(lnode,n/2);
+	root->right=l2t(temp->next,(n-1)/2);//节点倾向于后者。偶数为后，奇数为中。
+	return root;
+}
+treenode* list2tree(listnode* head)
+{
+	treenode* root=NULL;
+	if(head==NULL)
+		return root;
+	listnode* temp=head;
+	int count=0;
+	while(temp)
+	{
+		count++;
+		temp=temp->next;
+	}
+	return l2t(head,count);
+}
+
+
+int main()
+{
+	listnode* head=new listnode(4);
+	head->next=new listnode(2);
+	head->next->next=new listnode(5);
+	head->next->next->next=new listnode(1);
+	head->next->next->next->next=new listnode(3);
+	head->next->next->next->next->next=new listnode(6);
+	treenode* root=list2tree(head);
+	vector<vector<int> > result=levelorder(root);
+	int len=result.size();
+
+	for(int i=0;i<len;i++)
+	{
+		int temp=result[i].size();
+		for(int j=0;j<temp;j++)
+		{
+			cout<<result[i][j]<<",";
+		}
+		cout<<endl;
+	}
+}
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
