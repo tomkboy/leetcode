@@ -1,0 +1,76 @@
+Enter file contents here
+// binary tree postorder travesal.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
+
+
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+
+vector<int> postorder(treenode* root)
+{
+	vector<int> temp;
+	stack<treenode*> sta;
+	//vector<vector<int> > vec;
+	if(root==NULL)
+		return temp;
+	sta.push(root);
+	treenode* pre=NULL;
+	while(!sta.empty())
+	{
+		treenode* start=sta.top();
+		
+		if((start->left==NULL&&start->right==NULL)||(pre!=NULL&&(pre==start->left||pre==start->right)))
+		{
+			temp.push_back(start->val);
+			pre=start;
+			sta.pop();
+		}
+		else
+		{
+			if(start->right)
+				sta.push(start->right);
+			if(start->left)
+				sta.push(start->left);
+		}
+	}
+	return temp;
+}
+
+int main()
+{
+	treenode* root=new treenode(5);
+	root->left=new treenode(4);
+	root->left->left=new treenode(11);
+	root->left->left->left=new treenode(7);
+	root->left->left->right=new treenode(2);
+	root->right=new treenode(8);
+	root->right->left=new treenode(13);
+	root->right->right=new treenode(4);
+	root->right->right->left=new treenode(5);
+	root->right->right->right=new treenode(1);
+	vector<int> temp=postorder(root);
+	int len=temp.size();
+	for(int i=0;i<len;i++)
+	{
+		cout<<temp[i]<<",";
+	}
+	cout<<endl;
+
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
