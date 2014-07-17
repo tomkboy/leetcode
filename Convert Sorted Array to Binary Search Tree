@@ -1,0 +1,62 @@
+Enter file contents here
+// Convert Sorted Array to Binary Search Tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+#include"levelorder.h"
+using namespace std;
+//
+//struct treenode{
+//	int val;
+//	treenode* left;
+//	treenode* right;
+//	treenode(int x):val(x),left(NULL),right(NULL){}
+//};
+
+treenode* s(vector<int>& num,int a,int b)
+{
+	//if(a<b)
+	if(a>b)
+		return NULL;
+
+	int mid=a+(b-a)/2;
+	treenode* root=new treenode(num[mid]);
+	root->left=s(num,a,mid-1);
+	root->right=s(num,mid+1,b);
+	return root;
+}
+treenode* sortedarrytobsf(vector<int>& num){
+	int len=num.size();
+	if(len==0)
+		return NULL;
+	len--;
+	return s(num,0,len);
+}
+
+int main()
+{
+	int A[]={4,2,5,1,3,6};
+	vector<int> num(A,A+6);
+	vector<vector<int> > result;
+	treenode* root=sortedarrytobsf(num);
+
+	result=levelorder(root);
+	int len=result.size();
+	for(int i=0;i<len;i++)
+	{
+		int temp=result[i].size();
+		for(int j=0;j<temp;j++)
+		{
+			cout<<result[i][j]<<",";
+		}
+		cout<<endl;
+	}
+
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
