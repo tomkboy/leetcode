@@ -1,0 +1,69 @@
+Enter file contents here
+// binary tree inorder travesal.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
+
+
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+
+vector<int> inorder(treenode* root)
+{
+	vector<int> res;
+	stack<treenode*> sta;
+	if(root==NULL)
+		return res;
+	//sta.push(root);
+	//treenode* pre=NULL;
+	treenode* temp=root;
+	while(!sta.empty()||temp!=NULL)//here is || not &&
+	{
+		//treenode* temp=sta.top();
+		while(temp)
+		{
+			sta.push(temp);
+			temp=temp->left;
+		}
+		temp=sta.top();
+		res.push_back(temp->val);
+		temp=temp->right;
+		sta.pop();
+
+	}
+	return res;
+}
+int main()
+{
+	treenode* root=new treenode(5);
+	root->left=new treenode(4);
+	root->left->left=new treenode(11);
+	root->left->left->left=new treenode(7);
+	root->left->left->right=new treenode(2);
+	root->right=new treenode(8);
+	root->right->left=new treenode(13);
+	root->right->right=new treenode(4);
+	root->right->right->left=new treenode(5);
+	root->right->right->right=new treenode(1);
+	vector<int> temp=inorder(root);
+	for(int i=0;i<temp.size();i++)
+	{
+		cout<<temp[i]<<",";
+
+	}
+	cout<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
