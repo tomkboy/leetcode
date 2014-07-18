@@ -1,0 +1,33 @@
+Enter file contents here
+// unique binary search tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+
+int uniquenum(int n)
+{
+	int *A=new int[n+1];
+	//int *A=new int(n+1,0);
+	A[0]=1;
+	A[1]=1;
+	A[2]=2;
+	for(int i=3;i<=n;i++)
+	{
+		A[i]=0;//we should inial it or we can not read it ,cause it has no val only address
+		for(int j=0;j<i;j++)
+			A[i]+=A[j]*A[i-j-1];
+	}
+	return A[n];//same to dp problem
+
+}
+int main()
+{
+	cout<<uniquenum(5)<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
