@@ -1,0 +1,50 @@
+Enter file contents here
+// validate binary search tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+bool bfs(treenode* node,int mini,int maxi)
+{
+	if(node==NULL)
+		return true;
+	if(node->val<mini||node->val>maxi)
+		return false;
+	else
+	{
+		return bfs(node->left,mini,node->val)&&bfs(node->right,node->val,maxi);
+	}
+}
+bool isvalid(treenode* root)
+{
+	int MAX=0x7FFFFFFF;
+	int MIN=0x80000000;
+	if(root==NULL)
+		return true;
+	return bfs(root,MIN,MAX);
+}
+
+int main()
+{
+	treenode* root=new treenode(5);
+	root->left=new treenode(2);
+	root->left->right=new treenode(3);
+	root->right=new treenode(7);
+	root->right->left=new treenode(6);
+	root->right->right=new treenode(4);
+	cout<<isvalid(root)<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
