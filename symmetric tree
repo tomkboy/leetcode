@@ -1,0 +1,52 @@
+Enter file contents here
+// symmetric tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+bool symmetric(treenode* l,treenode* r)
+{
+	if(l==NULL&&r==NULL)
+		return true;
+	if(l!=NULL&&r!=NULL)
+	{
+		if(l->val==r->val)
+			return symmetric(l->left,r->right)&&symmetric(l->right,r->left);
+		return false;
+	}
+	return false;
+}
+bool symmetrictree(treenode* root)
+{
+	if(root==NULL)
+		return true;
+	
+	treenode* l=root->left;
+	treenode* r=root->right;
+	return symmetric(l,r);
+
+}
+int main()
+{
+	treenode* root=new treenode(1);
+	root->left=new treenode(2);
+	root->right=new treenode(2);
+	
+	//root->right=new treenode(20);
+
+	cout<<symmetrictree(root)<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
