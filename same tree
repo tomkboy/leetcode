@@ -1,0 +1,49 @@
+Enter file contents here
+// same tree.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+struct treenode{
+	int val;
+	treenode* left;
+	treenode* right;
+	treenode(int x):val(x),left(NULL),right(NULL){}
+};
+
+bool issame(treenode* p,treenode* q)
+{
+	if(p==NULL||q==NULL)
+	{
+		if(p==NULL&&q==NULL)
+			return true;
+		return false;
+	}
+	else
+	{
+		if(p->val!=q->val)
+			return false;
+		else
+			return issame(p->left,q->left)&&issame(q->right,p->right);
+	}
+}
+
+int main()
+{
+	treenode* root1=new treenode(1);
+	treenode* root2=new treenode(1);
+	root1->left=new treenode(2);
+	root1->right=new treenode(3);
+	root2->left=new treenode(2);
+	root2->right=new treenode(3);
+
+	cout<<issame(root1,root2)<<endl;
+
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
