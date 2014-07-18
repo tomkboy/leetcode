@@ -1,0 +1,61 @@
+Enter file contents here
+// rotate list.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+struct listnode{
+	int val;
+	listnode* next;
+	listnode(int x):val(x),next(NULL){}
+};
+listnode* rotate(listnode* head,int k)
+{
+	listnode* temp=head,*fast=head,*ret=NULL;
+	listnode** p=&ret;
+	int len=0;
+	while(temp)
+	{
+		len++;
+		temp=temp->next;
+	}
+	int cur=len-k-1;
+	while(cur--)
+	{
+		fast=fast->next;
+		//p=&((*p)->next);
+	}
+	*p=fast->next;
+	fast->next=NULL;
+	while(k--)
+	{
+		p=&((*p)->next);
+	}
+	*p=head;
+	return ret;
+}
+int main()
+{
+	listnode* head=new listnode(1);
+	head->next=new listnode(2);
+	head->next->next=new listnode(3);
+	head->next->next->next=new listnode(4);
+	head->next->next->next->next=new listnode(5);
+	listnode* temp=rotate(head,2);
+
+	while(temp)
+	{
+		
+		cout<<temp->val<<",";
+		temp=temp->next;
+	}
+	cout<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
