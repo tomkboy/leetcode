@@ -1,0 +1,88 @@
+Enter file contents here
+// reverse linked list2.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+struct listnode{
+     int val;
+	 listnode* next;
+	 listnode(int x):val(x),next(NULL){}
+};
+//listnode* reverse(listnode* head,int n)
+//{
+//	listnode* pre=NULL,*cur=head,*temp=NULL;
+//	while(n--)
+//	{
+//		temp=cur->next;
+//		cur->next=pre;
+//		pre=cur;
+//		//head=temp;
+//		
+//	}
+//	return cur;
+//}
+listnode* reverselinked(listnode* head,int m,int n)
+{
+	int k=n-m+1;
+	listnode* slow=head;
+	listnode** p=&head;
+	//*p=head;
+	//m--;
+	while(--m)
+	{
+		slow=slow->next;
+		p=&((*p)->next);
+	}
+	/*if(m>0)
+	{
+		while(--m)
+	{
+		slow=slow->next;
+		p=&((*p)->next);
+	}
+		}*/
+	
+	/*while(--n)
+	{
+		fast=fast->next;
+	}*/
+	//listnode* temp=reverse(slow,k);
+	listnode* temp=*p,*pre=NULL,*nxt=NULL;
+	while(k--)
+	{
+		nxt=temp->next;
+		temp->next=pre;
+		pre=temp;
+		temp=nxt;
+	}
+	(*p)->next=temp;
+	*p=pre;
+	return head;
+
+
+}
+
+int main()
+{
+	listnode* head=new listnode(1);
+	head->next=new listnode(2);
+	head->next->next=new listnode(3);
+	head->next->next->next=new listnode(4);
+	head->next->next->next->next=new listnode(5);
+	listnode* temp=reverselinked(head,2,4);
+	while(temp)
+	{
+		cout<<temp->val<<",";
+		temp=temp->next;
+	}
+	cout<<endl;
+	
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
