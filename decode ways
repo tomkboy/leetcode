@@ -1,0 +1,43 @@
+Enter file contents here
+// decode ways.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int decodenum(string s)
+{
+	int len=s.length();
+	int *A=new int(len+1);
+	A[0]=1;
+	//A[1]=1;
+	if(s[0]=='0')
+		return 0;
+	for(int i=1;i<=len;i++)
+	{
+		A[i]=0;
+		if(s[i-1]!='0')
+			A[i]=A[i-1];
+		
+		if(i>=2&&((s[i-2]-'0')*10+(s[i-1]-'0')>=10&&(s[i-2]-'0')*10+(s[i-1]-'0')<=26))
+			A[i]+=A[i-2];
+		
+			
+	}
+	return A[len];
+}
+int main()
+{
+	string s("12412");
+	int temp=decodenum(s);
+	cout<<temp<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
