@@ -1,0 +1,60 @@
+Enter file contents here
+// merge sorted array.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+
+#include<iostream>
+using namespace std;
+void merge(int A[],int m,int B[],int n)
+{
+	int c=m+n-1;
+	m--;
+	n--;
+	while(m>=0&&n>=0)
+		//while(m&&n)     pay attention to zero,also do the loop
+	{
+		if(B[n]>A[m])
+			
+			{
+				A[c--]=B[n--];
+				//n--;
+		}
+		else
+			{
+				A[c--]=A[m--];
+				//m--;
+		}
+	}
+	while(n>=0)
+	{
+		A[c--]=B[n--];
+	}
+	
+}
+int main()
+{
+	int m=5;
+	int n=3;
+	/*int *A=new int(8);
+	A[0]=1;
+	A[1]=3;
+	A[2]=5;
+	A[3]=7;
+	A[4]=9;*/
+	int A[]={1,3,5,7,9,0,0,0};
+	int B[]={2,4,6};
+	merge(A,5,B,3);
+	for(int i=0;i<(sizeof(A)/sizeof(int));i++)
+	{
+		cout<<A[i]<<",";
+	}
+	cout<<endl;
+}
+//当sizeof时候，不能用注释掉的方法，注释掉的是A为一个指针，不是数组名字。必须是一个数组名字才行。
+//当new分配空间时候，不能用sizeof，只能用常量大小
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
