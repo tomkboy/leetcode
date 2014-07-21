@@ -1,0 +1,61 @@
+Enter file contents here
+// remove duplicates from sorted list.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+using namespace std;
+struct listnode{
+	int val;
+	listnode* next;
+	listnode(int x):val(x),next(NULL){}
+
+};
+
+listnode* remove(listnode* head)
+{
+	if(!head||!head->next)
+		return head;
+	listnode* temp=head,*cur=head->next;
+	while(cur)
+	{
+		//cur=temp->next;
+		//if(cur!=NULL)
+		//{
+		if(temp->val==cur->val)
+		{
+			temp->next=cur->next;
+			cur=cur->next;
+		}
+		else{
+			temp=cur;
+			cur=cur->next;
+		}
+		//}
+		//temp=cur;
+	}
+	return head;
+}
+
+int main()
+{
+	listnode* head=new listnode(1);
+	head->next=new listnode(1);
+	head->next->next=new listnode(2);
+	head->next->next->next=new listnode(3);
+	listnode* temp=remove(head);
+	while(temp)
+	{
+		cout<<temp->val<<",";
+		temp=temp->next;
+	}
+	cout<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+//不带解引用的指针赋值，只是意味着改变了指针的指向。不是代表改变了指针的内容。temp=temp->next,意味着temp指针，指向了下一个
+//并没有改变当前temp指针甚至指针内的任何值。反而temp->next=cur->next;意味着temp下一个指针是指向了cur的下一个指针（也即temp的间隔变成了next）
+//是这样达到重新链接链表的
