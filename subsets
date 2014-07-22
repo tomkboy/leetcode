@@ -1,0 +1,57 @@
+Enter file contents here
+// subsets.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<math.h>
+#include<vector>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+
+
+void dfs(vector<int>& temp,vector<vector<int> > &res,int cur,int n,vector<int> &s)
+{
+	if(cur==n)
+	{
+		res.push_back(temp);
+		return;
+	}
+	dfs(temp,res,cur+1,n,s);
+	temp.push_back(s[cur]);
+	dfs(temp,res,cur+1,n,s);
+	temp.pop_back();
+	return;
+}
+
+vector<vector<int> > subset(vector<int>& s)
+{
+	int len=s.size();
+	vector<int> temp;
+	vector<vector<int> > res;
+	sort(s.begin(),s.end());
+	dfs(temp,res,0,len,s);
+	return res;
+}
+
+int main()
+{
+	int A[]={1,2,3};
+	vector<int> s(A,A+3);
+	vector<vector<int> > temp=subset(s);
+	int len=temp.size();
+	for(int i=0;i<len;i++)
+	{
+		int j=temp[i].size();
+		for(int k=0;k<j;k++)
+		{
+			cout<<temp[i][k]<<",";
+		}
+		cout<<endl;
+	}
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
