@@ -1,0 +1,75 @@
+Enter file contents here
+// setzeros.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+
+#include<vector>
+#include<iostream>
+
+using namespace std;
+
+void setzero(vector<vector<int> > &matrix)
+{
+	int row=matrix.size();
+	int col=matrix[0].size();
+	vector<bool> rvec(row,false);
+	vector<bool> cvec(col,false);
+	for(int i=0;i<row;i++)
+	{
+		for(int j=0;j<col;j++)
+		{
+			if(matrix[i][j]==0)
+			{
+				rvec[i]=true;
+				cvec[j]=true;
+			}
+		}
+	}
+	for(int i=0;i<row;i++)
+	{
+		for(int j=0;j<col;j++)
+		{
+			if(rvec[i])
+				matrix[i][j]=0;
+			else
+			{
+				if(cvec[j])
+					matrix[i][j]=0;
+			}
+
+		}
+	}
+
+}
+
+int main()
+{
+	int A[]={1,2,3};
+	int B[]={4,0,6};
+	int C[]={7,8,9};
+	vector<int> a(A,A+3);
+	vector<int> b(B,B+3);
+	vector<int> c(C,C+3);
+	vector<vector<int> > temp;
+	temp.push_back(a);
+	temp.push_back(b);
+	temp.push_back(c);
+	setzero(temp);
+	int len=temp.size();
+	for(int i=0;i<len;i++)
+	{
+		int k=temp[i].size();
+		for(int j=0;j<k;j++)
+		{
+			cout<<temp[i][j]<<",";
+		}
+		cout<<endl;
+	}
+	
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
