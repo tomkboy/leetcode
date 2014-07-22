@@ -1,0 +1,55 @@
+Enter file contents here
+// remove duplicates from sorted array2.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+
+using namespace std;
+
+int remove(int A[],int n)
+{
+	//vector<bool> vec(n,false);
+	int pos=0;
+	bool flag=false;
+	for(int i=1;i<n;i++)
+	{
+		/*if(A[pos]==A[i])
+		{
+			A[++pos]=A[i];
+			flag=true;
+		}
+		else
+		{
+			
+		}*/
+		if(A[pos]!=A[i])
+		{
+			A[++pos]==A[i];
+			flag=false;
+		}
+		else
+		{
+			if(!flag)
+			{
+				A[++pos]=A[i];
+				flag=true;
+			}
+		}
+	}
+	return pos+1;
+
+}
+
+int main()
+{
+	int A[]={1,1,1,2,2,2,3};
+	int temp=remove(A,6);
+	cout<<temp<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+//调试的时候跳转有些问题，但是结果是正确的，当检测到2的时候，会连续执行两遍第一个if，其实第二次应该执行相等，而不是不等。
