@@ -1,0 +1,43 @@
+Enter file contents here
+// climbing stairs.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+
+int climbstairs(int n)
+{
+	if(n==1||n==2)
+		return n;
+	int pre=1;
+	int cur=2;
+	int temp=0;
+	for(int i=3;i<=n;i++)
+	{
+		temp=cur+pre;
+		pre=cur;
+		cur=temp;
+		
+	}
+	return cur;
+}
+
+int main()
+{
+	cout<<"please input your stairs:";
+	int c;
+	int temp;
+	while(cin>>c)
+	{
+		temp=c;
+	}
+	int ways=climbstairs(temp);
+	cout<<"there are"<<ways<<"distinct ways"<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
