@@ -1,0 +1,58 @@
+Enter file contents here
+// anagrams.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+#include<map>
+using namespace std;
+
+vector<string> anagram(vector<string>& strs)
+{
+	vector<string> res;
+	map<string,int> flag;
+	int len=strs.size();
+	if(len==0)
+		return res;
+	for(int i=0;i<len;i++)
+	{
+		string temp=strs[i];
+		sort(temp.begin(),temp.end());
+		if(flag.find(temp)!=flag.end())
+		{
+			if(flag[temp]>=0)//here must >=0,cause the first element index is zero
+			{
+				res.push_back(strs[flag[temp]]);
+				flag[temp]=-1;
+			}
+			res.push_back(strs[i]);
+		}
+		else
+		{
+			flag[temp]=i;
+		}
+
+	}
+	return res;
+}
+int main()
+{
+	string A[]={"ear","rea","are","fuck"};
+	vector<string> vec(A,A+4);
+	vector<string> res(anagram(vec));
+	int len=res.size();
+	for(int i=0;i<len;i++)
+	{
+		cout<<res[i]<<" ";
+	}
+
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
