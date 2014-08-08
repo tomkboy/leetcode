@@ -1,0 +1,45 @@
+Enter file contents here
+// sqrt(x).cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+
+#include<iostream>
+
+using namespace std;
+
+int sqrt(int x)
+{
+	int left=0;
+	int right=x;
+	while(left<=right)
+	{
+		int mid=left+(right-left)/2;
+
+		if(x/mid==mid)
+			return mid;
+		else
+			if(x/mid>mid)
+				left=mid+1;
+			else
+				right=mid-1;
+	}
+	return right;
+}
+
+int main()
+{
+	cout<<"please input your number(not negative):"<<endl;
+	int temp;
+	int x;
+	while(cin>>temp)
+		x=temp;
+	cout<<"the sqrt of x is:"<<sqrt(x)<<endl;
+
+}
+// pay attention it's update left and right ,so we can list the value only to avoid flow :int val=x/mid;
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
