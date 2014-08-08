@@ -1,0 +1,50 @@
+Enter file contents here
+// plusone.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+using namespace std;
+vector<int> plusone(vector<int>& digits)
+{
+	vector<int> res;
+	int a=1;
+	int len=digits.size();
+	if(len==0)
+		return digits;
+	for(int i=len-1;i>=0;i--)
+	{
+		digits[i]+=a;
+		if(digits[i]==10)// here forget == one more time...wtf!!!
+		{
+			digits[i]=0;
+		}
+		else
+		{
+			a=0;
+			break;
+		}
+	}
+	if(a)
+		res.push_back(a);
+	for(int i=0;i<len;i++)
+		res.push_back(digits[i]);
+	return res;
+}
+int main()
+{
+	int A[]={1,5,9};
+	vector<int> vec(A,A+3);
+	vector<int> res;
+	res=plusone(vec);
+	int len=res.size();
+	for(int i=0;i<len;i++)
+		cout<<res[i];
+	cout<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
