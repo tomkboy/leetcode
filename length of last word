@@ -1,0 +1,39 @@
+Enter file contents here
+// length of last word.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+
+using namespace std;
+
+int len(const char* s)
+{
+	int count=0;
+	while(*s!='\0')
+	{
+		count++;
+		//s++;
+		if(*s==' ')
+		{
+			count=0;
+		}
+		s++;
+	}
+	return count;
+}
+int main()
+{
+	const char* s="last world";
+	int temp=len(s);
+	cout<<temp;
+
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+//可以解引用访问，也可以下标访问。。。。。。。。。。。。。。。。。
