@@ -1,0 +1,41 @@
+Enter file contents here
+// pow(x,n).cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+
+double pow1(double x,int n)
+{
+	bool flag=true;
+	if(n<0)
+		flag=false;
+	double res=1;
+	while(n)
+	{
+		if(n%2)
+			res*=x;
+		x*=x;
+		n/=2;
+	}
+	if(flag)
+		return res;
+	else
+		return 1/res;
+}
+
+int main()
+{
+	double x=4;
+	//int n=2;
+	int n=-1;
+	cout<<pow1(x,n)<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
