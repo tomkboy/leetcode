@@ -1,0 +1,57 @@
+Enter file contents here
+// permutations.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<vector>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+void permutation(vector<int>& nums,int cur,int final,vector<vector<int> >& res)
+{
+	if(cur==final)
+	{
+		res.push_back(nums);
+		return;
+	}
+	for(int i=cur;i<final;i++)
+	{
+		swap(nums[i],nums[cur]);
+		permutation(nums,cur+1,final,res);
+		swap(nums[cur],nums[i]);
+	}
+
+}
+vector<vector<int> > permute(vector<int>& nums)
+{
+	int len=nums.size();
+	vector<vector<int> > res;
+	if(len==0)
+		return res;
+	sort(nums.begin(),nums.end());
+	permutation(nums,0,len,res);
+	return res;
+
+}
+
+int main()
+{
+	int A[]={1,2,4,3};
+	vector<int> temp(A,A+4);
+	vector<vector<int> > res=permute(temp);
+	int len=res.size();
+	for(int i=0;i<len;i++)
+	{
+		int j=res[i].size();
+		for(int k=0;k<j;k++)
+			cout<<res[i][k]<<" ";
+		cout<<endl;
+	}
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+//this dfs likes tree ,so understand it using tree ,when a level return ,it will do the parall station
