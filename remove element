@@ -1,0 +1,36 @@
+Enter file contents here
+// remove element.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+
+int remov(int A[],int n,int elem)
+{
+	int pos=0;
+	for(int i=0;i<n;i++)
+	{
+		if(A[i]==elem)
+		{
+			continue;
+		}
+		else
+			A[pos++]=A[i];
+
+	}
+	return pos;
+}
+int main()
+{
+	int A[]={1,1,2,4,5};
+	int temp=remov(A,5,1);
+	cout<<temp<<endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
