@@ -1,0 +1,45 @@
+Enter file contents here
+// remove duplicate from sorted array.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+
+using namespace std;
+
+int removeduplicates(int A[],int n)
+{
+	int pos=0;
+	/*for(int i=1;i<n;i++)
+	{
+		if(A[pos]==A[i])
+		{
+			pos++;
+			n--;
+		}
+		else
+			pos++;
+	}
+	return n;*/
+	for(int i=1;i<n;i++)
+	{
+		if(A[pos]!=A[i])
+			A[++pos]=A[i];
+		else
+			continue;
+	}
+	return pos+1;
+}
+
+int main()
+{
+	int A[]={1,1,1,2,2,4,5};
+	int temp=removeduplicates(A,7);
+	cout<<temp<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+//assume the next pos new val until the current val is diffrent from the i pos
