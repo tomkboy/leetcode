@@ -1,0 +1,86 @@
+Enter file contents here
+// merge k sorted lists.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<list>
+#include <iostream>
+#include<queue>
+#include <algorithm>
+
+#include <vector>
+
+ 
+
+using namespace std;
+
+struct ListNode{
+	int val;
+	ListNode* next;
+	ListNode(int x):val(x),next(NULL){}
+};
+
+struct cmp{
+bool operator()(ListNode* a,ListNode* b)
+{
+return a->val > b->val;//STL里面默认用的是 vector. 比较方式默认用 operator< , 所以如果你把后面俩个参数缺省的话，
+//优先队列就是大顶堆，队头元素最大
+}//从小到大，。。。。。。卧槽。。。小的优先级高
+ };
+class Solution {
+public:
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        ListNode* ret=NULL;
+        ListNode** pcur=&ret;
+        ListNode* temp=NULL;
+        int k=lists.size();
+        if(k==0)
+        return ret;
+        priority_queue<ListNode*,vector<ListNode*>,cmp> que;
+        for(int i=0;i<k;i++)
+        {
+            if(lists[i]!=NULL)
+            {que.push(lists[i]);}
+        }
+        while(!que.empty())
+        {
+            
+            temp=que.top();//top will be pop,have to save the list,so we need temp;
+            que.pop();
+            *pcur=temp;
+            pcur=&((*pcur)->next);
+            if(temp->next!=NULL)
+            {
+                que.push(temp->next);
+            }
+        }
+        return ret;
+    }
+};
+
+int main()
+{
+	ListNode* l1=new ListNode(2);
+	l1->next=new ListNode(4);
+	ListNode* l2=new ListNode(3);
+	l2->next=new ListNode(5);
+	ListNode* l3=new ListNode(1);
+	l3->next=new ListNode(6);
+	vector<ListNode*> vec;
+	vec.push_back(l1);
+	vec.push_back(l2);
+	vec.push_back(l3);
+	Solution k;
+	ListNode* temp=k.mergeKLists(vec);
+	while(temp)
+	{
+		cout<<temp->val<<endl;
+		temp=temp->next;
+	}
+
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
