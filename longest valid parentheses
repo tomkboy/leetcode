@@ -1,0 +1,68 @@
+Enter file contents here
+// longest valid parentheses.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<string>
+#include<stack>
+
+using namespace std;
+int longvalparen(string s)
+{
+	stack<char> sta;
+	stack<int> pos;
+	int maxlen=0;
+	int len=s.size();
+	for(int i=0;i<len;i++)
+	{
+		if(s[i]=='(')
+		{
+			sta.push(s[i]);
+			pos.push(i);
+		}
+		else
+		{
+			if(!sta.empty())
+			{
+				if(sta.top()=='(')
+				{
+					sta.pop();
+					pos.pop();
+				
+				if(sta.empty())
+					maxlen=max(maxlen,i+1);
+				else
+					maxlen=max(maxlen,i-pos.top());
+				}
+				else
+				{
+					sta.push(s[i]);
+					pos.push(i);
+				}
+			}
+			else
+			{
+				sta.push(s[i]);
+				pos.push(i);
+			}
+		}
+	}
+	return maxlen;
+}
+
+int main()
+{
+	string s=")()()";
+	int temp=longvalparen(s);
+	cout<<temp<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+//save the unvalid ) and it's pos;so ,the biggest loop is ( or not
+//then ,if is (,we save it in stack.if not,there will be pay attention
+//if ),we should know if the stack is empty,if not,we update the maxlen(if the top is '(',if not we continue push in stack)
+//if empty,push in stack ')'
