@@ -1,0 +1,81 @@
+Enter file contents here
+// remove nth node from end of list.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<list>
+#include<iostream>
+
+using namespace std;
+
+struct listnode{
+	int val;
+	listnode* next;
+	listnode(int x):val(x),next(NULL){}
+};
+
+listnode* removenth(listnode* head,int n)
+{
+	listnode* temp=head,*cur=head;
+	int count=0;
+	while(temp)
+	{
+		count++;
+		temp=temp->next;
+	}
+	int k=count-n-1;
+	if(k==-1)
+		return head->next;
+	else
+	{
+		while(k--)
+		{
+			cur=cur->next;
+		}
+		cur->next=cur->next->next;
+		return head;
+	}
+
+}
+listnode* removenth2(listnode* head,int n)
+{
+	listnode** cur=&head,**pre=&head;
+	for(int i=1;i<n;i++)
+	{
+		pre=&((*pre)->next);
+	}
+	while((*pre)->next)
+	{
+		pre=&((*pre)->next);
+		cur=&((*cur)->next);
+	}
+	*cur=(*cur)->next;
+	return head;
+}
+int main()
+{
+	listnode* l=new listnode(1);
+	l->next=new listnode(2);
+	l->next->next=new listnode(3);
+	l->next->next->next=new listnode(4);
+	l->next->next->next->next=new listnode(5);
+	//listnode* test=removenth(l,2);
+	listnode* test1=removenth(l,5);
+	/*while(test)
+	{
+		cout<<test->val<<endl;
+		test=test->next;
+	}*/
+	while(test1)
+	{
+		cout<<test1->val<<endl;
+		test1=test1->next;
+	}
+
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
