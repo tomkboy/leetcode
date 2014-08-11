@@ -1,0 +1,43 @@
+Enter file contents here
+// generate parentheses.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void dfs(int left,int right,int n,string temp,vector<string>& res)
+{
+	if(left==n&&right==n)
+		res.push_back(temp);
+	if(left<n)
+		dfs(left+1,right,n,temp+'(',res);
+	if(left>right)
+		dfs(left,right+1,n,temp+')',res);
+}
+vector<string> generate(int n)
+{
+	vector<string> res;
+	//vector<string> temp;
+	string temp="";
+	dfs(0,0,n,temp,res);
+	return res;
+	
+}
+int main()
+{
+	vector<string> test=generate(3);
+	int len=test.size();
+	for(int i=0;i<len;i++)
+	{
+		cout<<test[i]<<endl;
+	}
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
