@@ -1,0 +1,58 @@
+Enter file contents here
+// valid parentheses.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+#include<stack>
+using namespace std;
+
+bool isvalid(string s)
+{
+	int len=s.length();
+	stack<char> sta;
+	for(int i=0;i<len;i++)
+	{
+		if(s[i]=='('||s[i]=='{'||s[i]=='[')
+			sta.push(s[i]);
+		else
+		{
+			if(s[i]==')')
+			{
+				if(sta.empty()||sta.top()!='(')
+					return false;
+				sta.pop();
+			}
+			if(s[i]=='}')
+			{
+				if(sta.empty()||sta.top()!='{')
+					return false;
+				sta.pop();
+			}
+			if(s[i]==']')
+			{
+				if(sta.empty()||sta.top()!='[')
+					return false;
+				sta.pop();
+			}
+		}
+	}
+	if(!sta.empty())
+		return false;
+	return true;
+}
+
+int main()
+{
+	string s="{{}}{}[]()";
+	string s2="{}{((}";
+	bool test1=isvalid(s);
+	bool test2=isvalid(s2);
+	cout<<test1<<test2<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
