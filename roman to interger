@@ -1,0 +1,52 @@
+Enter file contents here
+// roman to interger.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+
+using namespace std;
+
+int c2i(char c)
+{
+	switch(c){
+		case('i'):return 1;
+		case('v'):return 5;
+		case('x'):return 10;
+		case('l'):return 50;
+		case('c'):return 100;
+		case('d'):return 500;
+		case('m'):return 1000;
+		default:return 0;
+	}
+}
+
+int romantoi(string s)
+{
+	int len=s.size();
+	int last=c2i(s[0]);
+	int result=0;
+	for(int i=1;i<len;i++)
+	{
+		int cur=c2i(s[i]);
+		if(last<cur)
+			result-=last;
+		else
+			result+=last;
+		last=cur;
+	}
+	result+=c2i(s[len-1]);
+	return result;
+}
+
+int main()
+{
+	string s="vii";
+	cout<<romantoi(s)<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
