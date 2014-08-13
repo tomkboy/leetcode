@@ -1,0 +1,58 @@
+Enter file contents here
+// longest common prefix.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<vector>
+#include<iostream>
+using namespace std;
+
+
+string commonpre(string& s1,string& s2)
+{
+	int len1=s1.length();
+	int len2=s2.length();
+	int i=0,j=0;
+	while(i<len1&&j<len2)
+	{
+		if(s1[i]==s2[j])
+		{
+			i++;
+			j++;
+		}
+		else
+			break;
+	}
+	string temp=s1.substr(0,i);
+	return temp;
+}
+string longgest(vector<string>& strs)
+{
+	string cur=strs[0];
+	int len=strs.size();
+	for(int i=0;i<len;i++)
+	{
+		cur=commonpre(cur,strs[i]);
+	}
+	return cur;
+}
+
+int main()
+{
+	string s1="fuck u";
+	string s2="fuck u all";
+	string s3="fuck u&me";
+	vector<string> vec;
+	vec.push_back(s1);
+	vec.push_back(s2);
+	vec.push_back(s3);
+	string test=longgest(vec);
+	cout<<test<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+//while() loop 中，不能以while（s【i】==s【j】）作为循环条件，因为循环体中，i自增以后，可能会出现数组访问越界问题（在两个相同string中必然会出现数组访问越界）
