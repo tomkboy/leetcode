@@ -1,0 +1,61 @@
+Enter file contents here
+// string to integer(atoi).cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+
+using namespace std;
+
+int atoi(const char* str)
+{
+	if(*str=='/0'||str==NULL)
+		return 0;
+	while(*str==' ')
+	{
+		str++;
+	}
+	bool isPositive=true;
+	//int res=0;
+	long long res=0;
+	if(*str=='-')
+	{
+		isPositive=false;
+		str++;
+	}
+	else
+	{
+		if(*str=='+')
+		{
+			str++;
+		}
+	}
+	while(*str&&isdigit(*str))
+	{
+		int temp=*str-'0';
+		res=res*10+temp;
+		str++;
+	}
+	if(!isPositive)
+	{
+		res=-res;
+	}
+	if(res>INT_MAX)
+		return INT_MAX;
+	if(res<INT_MIN)
+		return INT_MIN;
+	return res;
+}
+
+int main()
+{
+	const char* s1="1234";
+	const char* s2="-1234f";
+	cout<<atoi(s1)<<" "<<atoi(s2)<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
