@@ -1,0 +1,65 @@
+Enter file contents here
+// longest palindromic substring.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<string>
+#include<iostream>
+
+using namespace std;
+
+string longest(string s)
+{
+	int len=s.size();
+	bool state[1000][1000]={false};
+	if(len<=1)
+		return s;
+	int maxlen=1;//not 0
+	int start=0;
+	for(int i=0;i<len;i++)
+	{
+		state[i][i]=true;
+		//maxlen=1;
+		//start=i;
+	}
+	for(int i=0;i<len-1;i++)
+	{
+		if(s[i]==s[i+1])
+		{
+			state[i][i+1]=true;
+			maxlen=2;
+			start=i;
+		}
+	}
+	for(int ilen=3;ilen<=len;ilen++)
+	{
+		for(int i=0;i+ilen<=len;i++)
+		{
+			int j=i+ilen-1;
+			if(s[i]==s[j]&&state[i+1][j-1])
+			{
+				state[i][j]=true;
+				maxlen=ilen;
+				start=i;
+			}
+		}
+	}
+
+	return s.substr(start,maxlen);
+}
+
+
+int main()
+{
+	string s="fucku";
+	string s1="aabaa";
+	string s2="aabba";
+	cout<<longest(s)<<","<<longest(s1)<<","<<longest(s2)<<endl;
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
+// when we update the maxlen and the start ,we should do it in if loop;if not ,it will be do anytime the for loop
+//and we should know the final loop is looking for the maxlen ,so it start at 3 to len,and the index start at i,end at i+len-1<slen.
