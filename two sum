@@ -1,0 +1,46 @@
+Enter file contents here
+// two sum.cpp : 定义控制台应用程序的入口点。
+//
+
+#include "stdafx.h"
+#include<iostream>
+#include<vector>
+#include<map>
+
+using namespace std;
+
+vector<int> twoSum(vector<int>& num,int target)
+{
+	vector<int> res;
+	int len=num.size();
+	map<int,int> index;
+	for(int i=0;i<len;i++)
+	{
+		map<int,int>::iterator iter=index.find(target-num[i]);
+		if(iter!=index.end())
+		{
+			res.push_back(iter->second+1);
+			res.push_back(i+1);
+		}
+		else
+			index[num[i]]=i;
+	}
+	return res;
+
+}
+
+int main()
+{
+	int A[]={1,2,7,3};
+	int target=9;
+	vector<int> nums(A,A+4);
+	vector<int> test=twoSum(nums,target);
+	int len=test.size();
+	cout<<test[0]<<","<<test[1]<<endl;
+
+}
+int _tmain(int argc, _TCHAR* argv[])
+{
+	return 0;
+}
+
